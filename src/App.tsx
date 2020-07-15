@@ -7,11 +7,14 @@ import 'config/ReactotronConfig';
 // global style
 import GlobalStyle from 'styles/global';
 
+// routes
+import Routes from 'routes';
+
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <h2>peçaZap</h2>
+      <Routes />
     </BrowserRouter>
   );
 };
