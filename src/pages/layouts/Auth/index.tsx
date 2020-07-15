@@ -1,9 +1,15 @@
 import React from 'react';
 
-import { Container } from './styles';
+import BackgroundSvg from 'assets/background.svg';
+import { Container, Content } from './styles';
 
 const Auth: React.FC = ({ children }) => {
-  return <Container>{children}</Container>;
+  return (
+    <Container>
+      <Content>{children}</Content>
+      <img src={BackgroundSvg} alt="background" />
+    </Container>
+  );
 };
 
 export default Auth;
