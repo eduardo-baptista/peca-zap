@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  img {
+  & > img {
     position: relative;
     right: -3%;
     max-height: 95vh;
