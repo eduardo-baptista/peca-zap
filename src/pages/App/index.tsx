@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-// import { Container } from './styles';
+import { Helmet } from 'react-helmet';
+
+import ChatsMenu from 'components/ChatsMenu';
 
 const App: React.FC = () => {
   return (
-    <div>
-      page app <Link to="app1">aaa</Link>
-      <div>
-        page app <Link to="app1">aaa</Link>
-      </div>
-    </div>
+    <>
+      <Helmet>
+        <title>peçaZap - App</title>
+      </Helmet>
+      <ChatsMenu />
+    </>
   );
 };
 
