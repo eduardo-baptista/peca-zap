@@ -39,6 +39,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'no-console': ['error', { allow: ['tron'] }],
     'react/prop-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

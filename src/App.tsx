@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 // reactotron config
 import 'config/ReactotronConfig';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
+          <ToastContainer />
           <GlobalStyle />
           <Routes />
         </BrowserRouter>

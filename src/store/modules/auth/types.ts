@@ -3,7 +3,7 @@ export const SIGN_IN_FAILURE = '@auth/SIGN_IN_FAILURE';
 export const SIGN_IN_SUCCESS = '@auth/SIGN_IN_SUCCESS';
 export const SIGN_OUT = '@auth/SIGN_OUT';
 
-interface signInRequestAction {
+export interface signInRequestAction {
   type: typeof SIGN_IN_REQUEST;
   payload: {
     user: string;
@@ -11,15 +11,15 @@ interface signInRequestAction {
   };
 }
 
-interface signInSuccessAction {
+export interface signInSuccessAction {
   type: typeof SIGN_IN_SUCCESS;
 }
 
-interface signInFailureAction {
+export interface signInFailureAction {
   type: typeof SIGN_IN_FAILURE;
 }
 
-interface signOutAction {
+export interface signOutAction {
   type: typeof SIGN_OUT;
 }
 

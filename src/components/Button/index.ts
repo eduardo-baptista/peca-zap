@@ -11,6 +11,11 @@ const Button = styled.button`
 
   display: flex;
   align-items: center;
+
+  &:disabled {
+    cursor: not-allowed;
+    background: #007a99;
+  }
 `;
 
 export default Button;

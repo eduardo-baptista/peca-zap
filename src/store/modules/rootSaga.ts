@@ -1,5 +1,7 @@
-import { all, AllEffect } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 
-export default function* rootSaga(): Generator<AllEffect<never>> {
-  return yield all([]);
+import auth from './auth/saga';
+
+export default function* rootSaga() {
+  return yield all([auth]);
 }

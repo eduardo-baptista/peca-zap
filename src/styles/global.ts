@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 export default createGlobalStyle`
 
   * {
@@ -27,7 +29,7 @@ export default createGlobalStyle`
     list-style: none;
   }
   button {
-    cursor: pointer; 
+    cursor: pointer;
     border: none;
   }
 `;

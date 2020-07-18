@@ -4,6 +4,9 @@ import {
   Redirect,
   RouteProps as BaseRouteProps,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { authState } from 'store/modules/auth/types';
 
 interface RouteProps extends BaseRouteProps {
   isPrivate: boolean;
@@ -17,9 +20,10 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const signed = false;
+  const signed = useSelector(({ auth }: { auth: authState }) => auth.signed);
 
   if (isPrivate && !signed) return <Redirect to="/" />;
+  if (!isPrivate && signed) return <Redirect to="/chat" />;
 
   return (
     <BaseRoute {...rest}>
