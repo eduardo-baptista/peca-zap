@@ -1,6 +1,6 @@
 import produce from 'immer';
 
-import { SIGN_IN_SUCCESS } from 'store/modules/auth/types';
+import { SIGN_IN_SUCCESS, SIGN_OUT } from 'store/modules/auth/types';
 import { userState, userActionTypes } from './types';
 
 const INITIAL_STATE: userState = {
@@ -22,6 +22,13 @@ export default function userReducer(
         draft.name = action.user.name;
         draft.photo = action.user.photo;
         break;
+      case SIGN_OUT: {
+        draft.user = '';
+        draft.company = '';
+        draft.name = '';
+        draft.photo = '';
+        break;
+      }
       default:
     }
   });

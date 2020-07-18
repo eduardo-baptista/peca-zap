@@ -1,4 +1,4 @@
-import { signInSuccessAction } from 'store/modules/auth/types';
+import { signInSuccessAction, signOutAction } from 'store/modules/auth/types';
 
 export interface userState {
   name: string;
@@ -7,4 +7,4 @@ export interface userState {
   photo: string;
 }
 
-export type userActionTypes = signInSuccessAction;
+export type userActionTypes = signInSuccessAction | signOutAction;

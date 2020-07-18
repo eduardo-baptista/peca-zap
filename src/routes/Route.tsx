@@ -23,7 +23,7 @@ const Route: React.FC<RouteProps> = ({
   const signed = useSelector(({ auth }: { auth: authState }) => auth.signed);
 
   if (isPrivate && !signed) return <Redirect to="/" />;
-  if (!isPrivate && signed) return <Redirect to="/chat" />;
+  if (!isPrivate && signed) return <Redirect to="/app" />;
 
   return (
     <BaseRoute {...rest}>

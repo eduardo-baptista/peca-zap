@@ -7,7 +7,7 @@ export default (reducers: Reducer): Reducer => {
     {
       key: 'pecaZap',
       storage,
-      // whitelist: ['auth', 'user'],
+      whitelist: ['auth', 'user'],
     },
     reducers
   );
