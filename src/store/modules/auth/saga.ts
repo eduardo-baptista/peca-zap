@@ -17,7 +17,9 @@ export function* signIn({ payload }: signInRequestAction) {
     return;
   }
 
-  yield put(signInSuccess());
+  delete data.password;
+
+  yield put(signInSuccess(data));
 }
 
 export default all([takeLatest(SIGN_IN_REQUEST, signIn)]);

@@ -1,3 +1,4 @@
+import { userState } from 'store/modules/user/types';
 import {
   SIGN_IN_REQUEST,
   SIGN_IN_FAILURE,
@@ -13,9 +14,10 @@ export function signInRequest(user: string, password: string): authActionTypes {
   };
 }
 
-export function signInSuccess(): authActionTypes {
+export function signInSuccess(user: userState): authActionTypes {
   return {
     type: SIGN_IN_SUCCESS,
+    user,
   };
 }
 

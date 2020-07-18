@@ -1,3 +1,5 @@
+import { userState } from '../user/types';
+
 export const SIGN_IN_REQUEST = '@auth/SIGN_IN_REQUEST';
 export const SIGN_IN_FAILURE = '@auth/SIGN_IN_FAILURE';
 export const SIGN_IN_SUCCESS = '@auth/SIGN_IN_SUCCESS';
@@ -13,6 +15,7 @@ export interface signInRequestAction {
 
 export interface signInSuccessAction {
   type: typeof SIGN_IN_SUCCESS;
+  user: userState;
 }
 
 export interface signInFailureAction {
