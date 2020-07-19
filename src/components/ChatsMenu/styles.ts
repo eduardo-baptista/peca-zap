@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 64px;
@@ -14,13 +15,21 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const LinkSvg = styled.a`
+interface LinkSvgProps {
+  color: string;
+}
+
+export const LinkSvg = styled(NavLink).attrs(() => ({
+  activeClassName: 'actived',
+}))<LinkSvgProps>`
   width: 100%;
   height: 64px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
 
   &:hover {
     cursor: pointer;
@@ -29,5 +38,47 @@ export const LinkSvg = styled.a`
   svg {
     width: 20px;
     height: 20px;
+
+    path {
+      fill: ${(props) => props.color};
+    }
+  }
+
+  &.actived {
+    background: ${(props) => props.color};
+
+    svg path {
+      fill: #ffffff;
+    }
+  }
+`;
+
+export const Notification = styled.div`
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 10px;
+  box-sizing: content-box;
+  background-clip: content-box;
+
+  width: 16px;
+  height: 16px;
+
+  background-color: #e33e1a;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+
+  ${LinkSvg}.actived > & {
+    color: #e33e1a;
+    background-color: #ffffff;
   }
 `;

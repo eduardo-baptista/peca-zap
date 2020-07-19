@@ -34,6 +34,8 @@ export const Alert = styled.div`
   height: 20px;
   background: #e33e1a;
   margin: 0 10px;
+  box-sizing: content-box;
+  background-clip: content-box;
 
   color: #ffffff;
   font-size: 10px;
@@ -42,7 +44,6 @@ export const Alert = styled.div`
 
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.6);
-
   display: flex;
   align-items: center;
   justify-content: center;
