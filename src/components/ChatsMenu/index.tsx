@@ -1,33 +1,56 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import ChatIcon from 'components/ChatIcon';
 
+import { contactsState } from 'store/modules/contacts/types';
+import { customersState } from 'store/modules/customers/types';
+
 import { Container, LinkSvg, Notification } from './styles';
 
+interface Colors {
+  [key: string]: string;
+}
+
 const ChatsMenu: React.FC = () => {
+  const contacts = useSelector(
+    ({ contacts: state }: { contacts: contactsState }) => state.contacts
+  );
+
+  const notifications = useSelector(
+    ({ customers: state }: { customers: customersState }) =>
+      state.customers.find((customer) => customer.id === state.selectedId)
+        ?.messages
+  );
+
+  const colors: Colors = useMemo(
+    () => ({
+      whatsapp: '#25D366',
+      email: '#E33E1A',
+      skype: '#00AFF0',
+      telefone: '#6A4AEA',
+      webchat: '#E87C28',
+    }),
+    []
+  );
+
   return (
     <Container>
       <LinkSvg color="#00A7CF" to="/app/calendar">
         <ChatIcon name="calendar" />
-        <Notification>2</Notification>
       </LinkSvg>
-      <LinkSvg color="#25D366" to="/app/whatsapp">
-        <ChatIcon name="whatsapp" />
-        <Notification>1</Notification>
-      </LinkSvg>
-      <LinkSvg color="#E33E1A" to="/app/email">
-        <ChatIcon name="email" />
-        <Notification>1</Notification>
-      </LinkSvg>
-      <LinkSvg color="#00AFF0" to="/app/skype">
-        <ChatIcon name="skype" />
-      </LinkSvg>
-      <LinkSvg color="#6A4AEA" to="/app/phone">
-        <ChatIcon name="telefone" />
-      </LinkSvg>
-      <LinkSvg color="#E87C28" to="/app/webchat">
-        <ChatIcon name="webchat" />
-      </LinkSvg>
+      {contacts.map((contact) => (
+        <LinkSvg
+          key={contact.channel}
+          color={colors[contact.type]}
+          to={`/app/${contact.type}`}
+        >
+          <ChatIcon name={contact.type} />
+          {notifications?.[contact.channel] && (
+            <Notification>{notifications[contact.channel]}</Notification>
+          )}
+        </LinkSvg>
+      ))}
     </Container>
   );
 };

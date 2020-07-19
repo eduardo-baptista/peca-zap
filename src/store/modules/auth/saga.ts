@@ -5,6 +5,7 @@ import api from 'services/api';
 import { IUser } from 'typings/IUser';
 
 import { loadDataRequest as loadCustomersRequest } from 'store/modules/customers/actions';
+import { loadDataRequest as loadContactsRequest } from 'store/modules/contacts/actions';
 
 import { AxiosResponse } from 'axios';
 import { TakeableChannel } from 'redux-saga';
@@ -25,6 +26,7 @@ export function* signIn({ payload }: signInRequestAction) {
 
   yield put(signInSuccess(data));
   yield put(loadCustomersRequest());
+  yield put(loadContactsRequest());
 }
 
 interface setDataParams {
@@ -37,6 +39,7 @@ export function* setData({ payload }: setDataParams) {
   if (!payload.auth.signed) return;
 
   yield put(loadCustomersRequest());
+  yield put(loadContactsRequest());
 }
 
 export default all([
