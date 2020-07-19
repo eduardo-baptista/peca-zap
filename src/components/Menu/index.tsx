@@ -13,7 +13,7 @@ import Picture from 'components/Picture';
 import PersonInfo from 'components/PersonInfo';
 import CustomerInfo from 'components/CustomerInfo';
 import SvgContainer from 'components/SvgContainer';
-import { customersState } from 'store/modules/customers/types';
+import { customersState, Customer } from 'store/modules/customers/types';
 import {
   Container,
   MenuHeader,
@@ -23,6 +23,10 @@ import {
   CustomersList,
   Logo,
 } from './styles';
+
+interface CustomerWithTotal extends Customer {
+  totalMessagesToSee: number;
+}
 
 const Menu: React.FC = () => {
   const dispatch = useDispatch();
@@ -83,6 +87,7 @@ const Menu: React.FC = () => {
               onClick={() => {
                 handleChangeCustomerId(customer.id);
               }}
+              alerts={customer.totalMessages}
             />
           </li>
         ))}

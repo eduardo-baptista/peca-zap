@@ -5,7 +5,6 @@ import api from 'services/api';
 import { IUser } from 'typings/IUser';
 
 import { loadDataRequest as loadCustomersRequest } from 'store/modules/customers/actions';
-import { loadDataRequest as loadChatsRequest } from 'store/modules/chats/actions';
 
 import { AxiosResponse } from 'axios';
 import { TakeableChannel } from 'redux-saga';
@@ -26,7 +25,6 @@ export function* signIn({ payload }: signInRequestAction) {
 
   yield put(signInSuccess(data));
   yield put(loadCustomersRequest());
-  yield put(loadChatsRequest());
 }
 
 interface setDataParams {
@@ -39,7 +37,6 @@ export function* setData({ payload }: setDataParams) {
   if (!payload.auth.signed) return;
 
   yield put(loadCustomersRequest());
-  yield put(loadChatsRequest());
 }
 
 export default all([

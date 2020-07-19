@@ -22,6 +22,8 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
   alerts,
   isActive = false,
 }) => {
+  if (alerts === 0) alerts = undefined;
+
   return (
     <Container type="button" isActive={isActive} onClick={onClick}>
       <Picture size={48} src={photo} alt={name} />
