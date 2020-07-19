@@ -15,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export const MenuHeader = styled.div`
-  padding: 10px 15px;
+  padding: 0 15px;
 `;
 
 export const UserInfo = styled.button`

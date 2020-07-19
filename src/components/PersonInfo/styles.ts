@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   flex: 1;
-  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
 
   h2 {
     font-weight: bold;

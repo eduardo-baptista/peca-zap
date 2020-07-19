@@ -5,9 +5,8 @@ export const Container = styled.div`
   width: 64px;
   height: 100%;
 
-  background: #f8fafc;
+  background-color: #f8fafc;
   box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.04);
-  border-radius: 20px 0px 0px 0px;
 
   overflow: hidden;
 
@@ -63,8 +62,8 @@ export const Notification = styled.div`
   width: 16px;
   height: 16px;
 
-  background-color: #e33e1a;
   border-radius: 50%;
+  background-color: #e33e1a;
   border: 2px solid rgba(255, 255, 255, 0.6);
 
   display: flex;
@@ -73,9 +72,9 @@ export const Notification = styled.div`
 
   color: #ffffff;
 
-  position: absolute;
-  bottom: 4px;
   right: 4px;
+  bottom: 4px;
+  position: absolute;
 
   ${LinkSvg}.actived > & {
     color: #e33e1a;
