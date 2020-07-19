@@ -17,7 +17,9 @@ export function signInRequest(user: string, password: string): authActionTypes {
 export function signInSuccess(user: userState): authActionTypes {
   return {
     type: SIGN_IN_SUCCESS,
-    user,
+    payload: {
+      user,
+    },
   };
 }
 

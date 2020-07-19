@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { signOut } from 'store/modules/auth/actions';
 
@@ -12,6 +12,7 @@ import Picture from 'components/Picture';
 import PersonInfo from 'components/PersonInfo';
 import CustomerInfo from 'components/CustomerInfo';
 import SvgContainer from 'components/SvgContainer';
+import { customersState } from 'store/modules/customers/types';
 import {
   Container,
   MenuHeader,
@@ -24,6 +25,12 @@ import {
 
 const Menu: React.FC = () => {
   const dispatch = useDispatch();
+  const selectedCustomer = useSelector(
+    ({ customers: state }: { customers: customersState }) => state.selectedId
+  );
+  const customers = useSelector(
+    ({ customers: state }: { customers: customersState }) => state.customers
+  );
 
   const handleLogout = useCallback(() => {
     dispatch(signOut());
@@ -57,41 +64,17 @@ const Menu: React.FC = () => {
         </CustomersTitleRow>
       </MenuHeader>
       <CustomersList>
-        <li>
-          <CustomerInfo
-            id={1}
-            name="Daniel Furtado"
-            company="wezen design"
-            photo="https://ui-avatars.com/api/?name=Joao+Silva"
-            isActive
-            alerts={2}
-          />
-        </li>
-        <li>
-          <CustomerInfo
-            id={1}
-            name="Daniel Furtado"
-            company="wezen design"
-            photo="https://ui-avatars.com/api/?name=Joao+Silva"
-          />
-        </li>
-        <li>
-          <CustomerInfo
-            id={1}
-            name="Daniel Furtado"
-            company="wezen design"
-            photo="https://ui-avatars.com/api/?name=Joao+Silva"
-            alerts={5}
-          />
-        </li>
-        <li>
-          <CustomerInfo
-            id={1}
-            name="Daniel Furtado"
-            company="wezen design"
-            photo="https://ui-avatars.com/api/?name=Joao+Silva"
-          />
-        </li>
+        {customers.map((customer) => (
+          <li key={customer.id}>
+            <CustomerInfo
+              id={customer.id}
+              name={customer.name}
+              company={customer.company}
+              photo={customer.photo}
+              isActive={selectedCustomer === customer.id}
+            />
+          </li>
+        ))}
       </CustomersList>
 
       <Logo>

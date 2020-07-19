@@ -16,12 +16,15 @@ export default function userReducer(
 ): userState {
   return produce(state, (draft) => {
     switch (action.type) {
-      case SIGN_IN_SUCCESS:
-        draft.user = action.user.user;
-        draft.company = action.user.company;
-        draft.name = action.user.name;
-        draft.photo = action.user.photo;
+      case SIGN_IN_SUCCESS: {
+        const { user } = action.payload;
+
+        draft.user = user.user;
+        draft.company = user.company;
+        draft.name = user.name;
+        draft.photo = user.photo;
         break;
+      }
       case SIGN_OUT: {
         draft.user = '';
         draft.company = '';

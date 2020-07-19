@@ -15,7 +15,9 @@ export interface signInRequestAction {
 
 export interface signInSuccessAction {
   type: typeof SIGN_IN_SUCCESS;
-  user: userState;
+  payload: {
+    user: userState;
+  };
 }
 
 export interface signInFailureAction {
