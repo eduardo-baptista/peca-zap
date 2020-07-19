@@ -12,7 +12,7 @@ const App: React.FC = () => {
         <title>peçaZap - App</title>
       </Helmet>
       <ChatsMenu />
-      <Chat>teste</Chat>
+      <Chat />
       <CustomerSideInfo />
     </>
   );

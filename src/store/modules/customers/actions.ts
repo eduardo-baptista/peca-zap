@@ -1,8 +1,9 @@
 import { ICustomer } from 'typings/ICustomer';
 import {
+  customersActionTypes,
   LOAD_DATA_REQUEST,
   LOAD_DATA_SUCCESS,
-  customersActionTypes,
+  CHANGE_SELECTED_ID,
 } from './types';
 
 export function loadDataRequest(): customersActionTypes {
@@ -16,6 +17,15 @@ export function loadDataSuccess(customers: ICustomer[]): customersActionTypes {
     type: LOAD_DATA_SUCCESS,
     payload: {
       customers,
+    },
+  };
+}
+
+export function changeSelectedId(id: number): customersActionTypes {
+  return {
+    type: CHANGE_SELECTED_ID,
+    payload: {
+      id,
     },
   };
 }

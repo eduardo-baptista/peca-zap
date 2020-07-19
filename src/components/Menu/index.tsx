@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { signOut } from 'store/modules/auth/actions';
+import { changeSelectedId } from 'store/modules/customers/actions';
 
 import { ReactComponent as DownArrowSvg } from 'assets/icons/down-arrow.svg';
 import { ReactComponent as SearchSvg } from 'assets/icons/search.svg';
@@ -30,6 +31,13 @@ const Menu: React.FC = () => {
   );
   const customers = useSelector(
     ({ customers: state }: { customers: customersState }) => state.customers
+  );
+
+  const handleChangeCustomerId = useCallback(
+    (id: number) => {
+      dispatch(changeSelectedId(id));
+    },
+    [dispatch]
   );
 
   const handleLogout = useCallback(() => {
@@ -72,6 +80,9 @@ const Menu: React.FC = () => {
               company={customer.company}
               photo={customer.photo}
               isActive={selectedCustomer === customer.id}
+              onClick={() => {
+                handleChangeCustomerId(customer.id);
+              }}
             />
           </li>
         ))}

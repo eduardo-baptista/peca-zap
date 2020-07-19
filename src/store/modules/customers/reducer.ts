@@ -3,8 +3,10 @@ import produce from 'immer';
 import {
   customersState,
   customersActionTypes,
+  changeSelectedIdAction,
   LOAD_DATA_SUCCESS,
   LOAD_DATA_REQUEST,
+  CHANGE_SELECTED_ID,
 } from './types';
 
 const INITIAL_STATE: customersState = {
@@ -26,6 +28,11 @@ export default function customersReducer(
       case LOAD_DATA_SUCCESS: {
         draft.loading = false;
         draft.customers = [...action.payload.customers];
+        break;
+      }
+
+      case CHANGE_SELECTED_ID: {
+        draft.selectedId = (action as changeSelectedIdAction).payload.id;
         break;
       }
       default:

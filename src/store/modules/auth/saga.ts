@@ -4,11 +4,14 @@ import { toast } from 'react-toastify';
 import api from 'services/api';
 import { IUser } from 'typings/IUser';
 
+import { loadDataRequest as loadCustomersRequest } from 'store/modules/customers/actions';
+import { loadDataRequest as loadChatsRequest } from 'store/modules/chats/actions';
+
 import { AxiosResponse } from 'axios';
 import { TakeableChannel } from 'redux-saga';
-import { signInFailure, signInSuccess } from './actions';
 import { signInRequestAction, SIGN_IN_REQUEST, authState } from './types';
-import { loadDataRequest } from '../customers/actions';
+
+import { signInFailure, signInSuccess } from './actions';
 
 export function* signIn({ payload }: signInRequestAction) {
   const { data }: AxiosResponse<IUser> = yield call(api.get, 'user');
@@ -22,7 +25,8 @@ export function* signIn({ payload }: signInRequestAction) {
   delete data.password;
 
   yield put(signInSuccess(data));
-  yield put(loadDataRequest());
+  yield put(loadCustomersRequest());
+  yield put(loadChatsRequest());
 }
 
 interface setDataParams {
@@ -34,7 +38,8 @@ interface setDataParams {
 export function* setData({ payload }: setDataParams) {
   if (!payload.auth.signed) return;
 
-  yield put(loadDataRequest());
+  yield put(loadCustomersRequest());
+  yield put(loadChatsRequest());
 }
 
 export default all([

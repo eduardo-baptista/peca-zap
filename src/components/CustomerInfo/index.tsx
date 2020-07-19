@@ -9,6 +9,7 @@ interface CustomerInfoProps {
   name: string;
   photo: string;
   company: string;
+  onClick(): void;
   alerts?: number;
   isActive?: boolean;
 }
@@ -17,11 +18,12 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
   name,
   photo,
   company,
+  onClick,
   alerts,
   isActive = false,
 }) => {
   return (
-    <Container type="button" isActive={isActive}>
+    <Container type="button" isActive={isActive} onClick={onClick}>
       <Picture size={48} src={photo} alt={name} />
       <PersonInfo name={name} company={company} />
       {alerts && <Alert>{alerts}</Alert>}

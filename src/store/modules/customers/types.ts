@@ -8,10 +8,17 @@ export interface loadDataRequestAction {
   type: typeof LOAD_DATA_REQUEST;
 }
 
-export interface loadDataSuccess {
+export interface loadDataSuccessAction {
   type: typeof LOAD_DATA_SUCCESS;
   payload: {
     customers: ICustomer[];
+  };
+}
+
+export interface changeSelectedIdAction {
+  type: typeof CHANGE_SELECTED_ID;
+  payload: {
+    id: number;
   };
 }
 
@@ -21,4 +28,7 @@ export interface customersState {
   customers: ICustomer[];
 }
 
-export type customersActionTypes = loadDataRequestAction | loadDataSuccess;
+export type customersActionTypes =
+  | loadDataRequestAction
+  | loadDataSuccessAction
+  | changeSelectedIdAction;
