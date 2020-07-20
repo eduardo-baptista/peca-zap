@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Helmet } from 'react-helmet';
 import { format, fromUnixTime } from 'date-fns';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import Button from 'components/Button';
 import ChatTopBar from 'components/ChatTopBar';
@@ -35,6 +37,8 @@ interface Email extends IChat {
 }
 
 const EmailList: React.FC = () => {
+  const histoy = useHistory();
+
   const emails: Email[] = useSelector((state: ReduxState) => {
     const channel = state.contacts.contacts.find(
       (contact) => contact.type === 'email'
@@ -63,8 +67,18 @@ const EmailList: React.FC = () => {
     }));
   });
 
+  const handleReadEmails = useCallback(
+    (id: number) => {
+      histoy.push(`/app/email/${id}`);
+    },
+    [histoy]
+  );
+
   return (
     <Container>
+      <Helmet>
+        <title>peçaZap - E-mail</title>
+      </Helmet>
       <ChatTopBar>
         <PageTitle>CAIXA DE ENTRADA</PageTitle>
         <PageHeaderActions>
@@ -84,7 +98,11 @@ const EmailList: React.FC = () => {
           </thead>
           <tbody>
             {emails.map((email) => (
-              <TBodyRow key={email.id} hasAlert={email.hasAlert}>
+              <TBodyRow
+                key={email.id}
+                hasAlert={email.hasAlert}
+                onClick={() => handleReadEmails(email.id)}
+              >
                 <td>{email.subject}</td>
                 <td>{email.formatedStart}</td>
                 <td>{email.formatedLast}</td>

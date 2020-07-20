@@ -19,7 +19,7 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     background: #fff;
   }
-  body, input, button {
+  body, input, button,textarea {
     font: 15px 'Lato', sans-serif;
   }
   a {

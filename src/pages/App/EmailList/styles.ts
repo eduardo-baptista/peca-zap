@@ -61,6 +61,8 @@ export const TBodyRow = styled.tr<TBodyRowProps>`
   color: #222222;
   border-radius: 5px;
 
+  cursor: pointer;
+
   font-weight: ${(props) => (props.hasAlert ? 'bold' : 'normal')};
   background: ${(props) => (props.hasAlert ? '#FFFFFF' : '#F8FAFC')};
 
