@@ -29,10 +29,7 @@ const ChatIcon: React.FC<ChatIconProps> = ({ name }) => {
     []
   );
 
-  const Component = useMemo(() => (name ? icons[name.toLowerCase()] : null), [
-    icons,
-    name,
-  ]);
+  const Component = useMemo(() => (name ? icons[name] : null), [icons, name]);
 
   if (!Component) return <div />;
 

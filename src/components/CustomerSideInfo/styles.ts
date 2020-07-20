@@ -54,6 +54,8 @@ export const Title = styled.h3`
   font-weight: bold;
   font-size: 12px;
   color: #79accd;
+
+  text-transform: uppercase;
 `;
 
 export const LastConversationsContainer = styled.div`

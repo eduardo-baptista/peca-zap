@@ -14,7 +14,7 @@ import CustomerInfo from 'components/CustomerInfo';
 import SvgContainer from 'components/SvgContainer';
 import SearchInput from 'components/SearchInput';
 
-import { customersState, Customer } from 'store/modules/customers/types';
+import { customersState } from 'store/modules/customers/types';
 import {
   Container,
   MenuHeader,
@@ -23,10 +23,6 @@ import {
   CustomersList,
   Logo,
 } from './styles';
-
-interface CustomerWithTotal extends Customer {
-  totalMessagesToSee: number;
-}
 
 const Menu: React.FC = () => {
   const dispatch = useDispatch();

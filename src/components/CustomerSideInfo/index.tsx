@@ -45,7 +45,7 @@ const CustomerSideInfo: React.FC = () => {
       const chn: Channels = {};
 
       state.contacts.forEach((contact) => {
-        chn[contact.channel] = contact.type.toUpperCase();
+        chn[contact.channel] = contact.type;
       });
 
       return chn;

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Container } from './styles';
 
@@ -8,12 +8,10 @@ interface PersonInfoProps {
 }
 
 const PersonInfo: React.FC<PersonInfoProps> = ({ name, company }) => {
-  const upperCompany = useMemo(() => company.toUpperCase(), [company]);
-
   return (
     <Container>
       <h2>{name}</h2>
-      <span>{upperCompany}</span>
+      <span>{company}</span>
     </Container>
   );
 };

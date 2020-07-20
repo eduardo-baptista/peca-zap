@@ -1,15 +1,25 @@
 import React from 'react';
+import { format, fromUnixTime } from 'date-fns';
 import { useSelector } from 'react-redux';
 
 import Button from 'components/Button';
 import ChatTopBar from 'components/ChatTopBar';
 import SearchInput from 'components/SearchInput';
+import EmailAlert from 'components/EmailAlert';
 
 import { chatsState } from 'store/modules/chats/types';
 import { contactsState } from 'store/modules/contacts/types';
 import { customersState } from 'store/modules/customers/types';
+import { IChat } from 'typings/IChat';
 
-import { Container, PageTitle, PageHeaderActions, Table } from './styles';
+import {
+  Container,
+  PageTitle,
+  PageHeaderActions,
+  TableContainer,
+  Table,
+  TBodyRow,
+} from './styles';
 
 interface ReduxState {
   chats: chatsState;
@@ -17,8 +27,15 @@ interface ReduxState {
   customers: customersState;
 }
 
+interface Email extends IChat {
+  alerts: number;
+  hasAlert: boolean;
+  formatedStart: string;
+  formatedLast: string;
+}
+
 const EmailList: React.FC = () => {
-  const emails = useSelector((state: ReduxState) => {
+  const emails: Email[] = useSelector((state: ReduxState) => {
     const channel = state.contacts.contacts.find(
       (contact) => contact.type === 'email'
     );
@@ -29,10 +46,21 @@ const EmailList: React.FC = () => {
 
     if (!selectedCustomer) return [];
 
-    return state.chats.chats.filter(
+    const chats = state.chats.chats.filter(
       (cht) =>
         cht.channel === channel.channel && cht.customer === selectedCustomer
     );
+
+    return chats.map((chat) => ({
+      ...chat,
+      alerts: chat.messages.filter((msg) => !msg.seen).length,
+      hasAlert: chat.messages.filter((msg) => !msg.seen).length !== 0,
+      formatedStart: format(fromUnixTime(chat.start), 'dd/MM/yyyy'),
+      formatedLast: format(
+        fromUnixTime(chat.messages[chat.messages.length - 1].timestamp),
+        'dd/MM/yyyy'
+      ),
+    }));
   });
 
   return (
@@ -44,8 +72,28 @@ const EmailList: React.FC = () => {
           <Button type="button">NOVO EMAIL</Button>
         </PageHeaderActions>
       </ChatTopBar>
-      {emails.map((email) => email.customer)}
-      <Table />
+      <TableContainer>
+        <Table>
+          <thead>
+            <tr>
+              <th>ASSUNTO</th>
+              <th>INÍCIO</th>
+              <th>ÚLTIMA MENSAGEM</th>
+              <th>alert</th>
+            </tr>
+          </thead>
+          <tbody>
+            {emails.map((email) => (
+              <TBodyRow key={email.id} hasAlert={email.hasAlert}>
+                <td>{email.subject}</td>
+                <td>{email.formatedStart}</td>
+                <td>{email.formatedLast}</td>
+                <EmailAlert numberOf={email.alerts} />
+              </TBodyRow>
+            ))}
+          </tbody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 };
