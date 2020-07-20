@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import ContentLoader from 'react-content-loader';
 import { useSelector } from 'react-redux';
 
 import ChatIcon from 'components/ChatIcon';
@@ -13,6 +14,9 @@ interface Colors {
 }
 
 const ChatsMenu: React.FC = () => {
+  const loading = useSelector(
+    ({ contacts: state }: { contacts: contactsState }) => state.loading
+  );
   const contacts = useSelector(
     ({ contacts: state }: { contacts: contactsState }) => state.contacts
   );
@@ -39,18 +43,25 @@ const ChatsMenu: React.FC = () => {
       <LinkSvg color="#00A7CF" to="/app/calendar">
         <ChatIcon name="calendar" />
       </LinkSvg>
-      {contacts.map((contact) => (
-        <LinkSvg
-          key={contact.channel}
-          color={colors[contact.type]}
-          to={`/app/${contact.type}`}
-        >
-          <ChatIcon name={contact.type} />
-          {notifications?.[contact.channel] && (
-            <Notification>{notifications[contact.channel]}</Notification>
-          )}
-        </LinkSvg>
-      ))}
+      {loading ? (
+        <ContentLoader foregroundColor="#cccccc">
+          <rect x="10" y="0" rx="3" ry="3" width="44" height="44" />
+          <rect x="10" y="54" rx="3" ry="3" width="44" height="44" />
+        </ContentLoader>
+      ) : (
+        contacts.map((contact) => (
+          <LinkSvg
+            key={contact.channel}
+            color={colors[contact.type]}
+            to={`/app/${contact.type}`}
+          >
+            <ChatIcon name={contact.type} />
+            {notifications?.[contact.channel] && (
+              <Notification>{notifications[contact.channel]}</Notification>
+            )}
+          </LinkSvg>
+        ))
+      )}
     </Container>
   );
 };

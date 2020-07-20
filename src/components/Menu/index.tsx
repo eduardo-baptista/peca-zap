@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import ContentLoader from 'react-content-loader';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { signOut } from 'store/modules/auth/actions';
@@ -26,6 +27,11 @@ import {
 
 const Menu: React.FC = () => {
   const dispatch = useDispatch();
+
+  const loading = useSelector(
+    ({ customers: state }: { customers: customersState }) => state.loading
+  );
+
   const selectedCustomer = useSelector(
     ({ customers: state }: { customers: customersState }) => state.selectedId
   );
@@ -66,23 +72,35 @@ const Menu: React.FC = () => {
           </SvgContainer>
         </CustomersTitleRow>
       </MenuHeader>
-      <CustomersList>
-        {customers.map((customer) => (
-          <li key={customer.id}>
-            <CustomerInfo
-              id={customer.id}
-              name={customer.name}
-              company={customer.company}
-              photo={customer.photo}
-              isActive={selectedCustomer === customer.id}
-              onClick={() => {
-                handleChangeCustomerId(customer.id);
-              }}
-              alerts={customer.totalMessages}
-            />
-          </li>
-        ))}
-      </CustomersList>
+      {loading ? (
+        <ContentLoader foregroundColor="#cccccc" style={{ flex: 1 }}>
+          <circle cx="41" cy="35" r="24" />
+          <rect x="77" y="21" rx="3" ry="3" width="150" height="10" />
+          <rect x="77" y="42" rx="3" ry="3" width="130" height="10" />
+
+          <circle cx="41" cy="107" r="24" />
+          <rect x="77" y="93" rx="3" ry="3" width="150" height="10" />
+          <rect x="77" y="113" rx="3" ry="3" width="130" height="10" />
+        </ContentLoader>
+      ) : (
+        <CustomersList>
+          {customers.map((customer) => (
+            <li key={customer.id}>
+              <CustomerInfo
+                id={customer.id}
+                name={customer.name}
+                company={customer.company}
+                photo={customer.photo}
+                isActive={selectedCustomer === customer.id}
+                onClick={() => {
+                  handleChangeCustomerId(customer.id);
+                }}
+                alerts={customer.totalMessages}
+              />
+            </li>
+          ))}
+        </CustomersList>
+      )}
 
       <Logo>
         <LogoSvg />
