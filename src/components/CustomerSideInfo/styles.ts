@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 296px;
   color: #222222;
+  overflow: auto;
 
   background: #ffffff;
   box-shadow: -4px 0px 2px rgba(0, 0, 0, 0.02);

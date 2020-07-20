@@ -1,7 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { format, fromUnixTime, differenceInDays } from 'date-fns';
 
 import { ReactComponent as EditSvg } from 'assets/icons/edit.svg';
 import { ReactComponent as DeleteSvg } from 'assets/icons/delete.svg';
+
+import { customersState } from 'store/modules/customers/types';
+import { contactsState } from 'store/modules/contacts/types';
+import { ICustomer } from 'typings/ICustomer';
 
 import Picture from 'components/Picture';
 import PersonInfo from 'components/PersonInfo';
@@ -17,79 +23,111 @@ import {
   ContactsContainer,
 } from './styles';
 
+interface Channels {
+  [key: number]: string;
+}
+
+interface LastConversationFormated {
+  channel: number;
+  finishedAt: number;
+  formatedTime: string;
+}
+
+interface FormatedCustomer extends ICustomer {
+  lastConversationsFormated: LastConversationFormated[];
+}
+
+type Customer = FormatedCustomer | undefined;
+
 const CustomerSideInfo: React.FC = () => {
+  const channels: Channels = useSelector(
+    ({ contacts: state }: { contacts: contactsState }) => {
+      const chn: Channels = {};
+
+      state.contacts.forEach((contact) => {
+        chn[contact.channel] = contact.type.toUpperCase();
+      });
+
+      return chn;
+    }
+  );
+
+  const customer: Customer = useSelector(
+    ({ customers: state }: { customers: customersState }) => {
+      const selectedCustomer = state.customers.find(
+        (ctm) => ctm.id === state.selectedId
+      );
+
+      if (!selectedCustomer) return undefined;
+
+      const formatedCustomer: FormatedCustomer = {
+        ...selectedCustomer,
+        lastConversationsFormated: [],
+      };
+
+      formatedCustomer.lastConversationsFormated = selectedCustomer.lastConversations.map(
+        (lastConversation) => ({
+          ...lastConversation,
+          formatedTime: `${format(
+            fromUnixTime(lastConversation.finishedAt),
+            'dd/MM/yyyy'
+          )} (${differenceInDays(
+            new Date(),
+            fromUnixTime(lastConversation.finishedAt)
+          )} dias atrás)`,
+        })
+      );
+
+      return formatedCustomer;
+    }
+  );
+
   return (
     <Container>
-      <CustomerInfo>
-        <Picture
-          size={64}
-          src="https://ui-avatars.com/api/?name=Carlos+Correa"
-          alt="User"
-        />
-        <PersonInfo name="Joào da Silva" company="acme inc" />
-      </CustomerInfo>
-
-      <ButtonsRow>
-        <Button type="button">
-          <EditSvg />
-        </Button>
-        <Button type="button">
-          <DeleteSvg />
-        </Button>
-      </ButtonsRow>
-
-      <LastConversationsContainer>
-        <Title>ÚLTIMAS CONVERSAS</Title>
-        <ul>
-          <li>
-            <ChatIcon name="whatsapp" />
-            25/09/2019 (10 dias atrás)
-          </li>
-          <li>
-            <ChatIcon name="whatsapp" />
-            15/09/2019 (20 dias atrás)
-          </li>
-          <li>
-            <ChatIcon name="skype" />
-            15/06/2019 (100 dias atrás)
-          </li>
-        </ul>
-      </LastConversationsContainer>
-
-      <ObservationsContainer>
-        <Title>OBSERVAÇÕES</Title>
-        <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci, lacus,
-          et potenti nisl viverra a, feugiat. Eget ultrices elit faucibus arcu
-          volutpat vulputate.
-        </span>
-      </ObservationsContainer>
-
-      <ContactsContainer>
-        <ul>
-          <li>
-            <ChatIcon name="whatsapp" />
-            <div>
-              <Title>WHATSAPP</Title>
-              <span>55 (19) 1234-5678</span>
-            </div>
-          </li>
-          <li>
-            <ChatIcon name="email" />
-            <div>
-              <Title>EMAIL</Title>
-              <span>joao@silva.com.br</span>
-            </div>
-          </li>
-          <li>
-            <ChatIcon name="skype" />
-            <div>
-              <Title>SKYPE</Title>
-              <span>@joao_silva</span>
-            </div>
-          </li>
-        </ul>
-      </ContactsContainer>
+      {customer && (
+        <>
+          <CustomerInfo>
+            <Picture size={64} src={customer.photo} alt={customer.name} />
+            <PersonInfo name={customer.name} company={customer.company} />
+          </CustomerInfo>
+          <ButtonsRow>
+            <Button type="button">
+              <EditSvg />
+            </Button>
+            <Button type="button">
+              <DeleteSvg />
+            </Button>
+          </ButtonsRow>
+          <LastConversationsContainer>
+            <Title>ÚLTIMAS CONVERSAS</Title>
+            <ul>
+              {customer.lastConversationsFormated.map((lastConversation) => (
+                <li key={lastConversation.finishedAt}>
+                  <ChatIcon name={channels[lastConversation.channel]} />
+                  {lastConversation.formatedTime}
+                </li>
+              ))}
+            </ul>
+          </LastConversationsContainer>
+          <ObservationsContainer>
+            <Title>OBSERVAÇÕES</Title>
+            <span>{customer.observations}</span>
+          </ObservationsContainer>
+          <ContactsContainer>
+            <ul>
+              {customer.contacts.map((contact) => (
+                <li key={contact.channel}>
+                  <ChatIcon name={channels[contact.channel]} />
+                  <div>
+                    <Title>{channels[contact.channel]}</Title>
+                    <span>{contact.value}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </ContactsContainer>
+        </>
+      )}
     </Container>
   );
 };

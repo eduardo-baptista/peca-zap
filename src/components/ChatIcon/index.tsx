@@ -13,7 +13,7 @@ interface Icons {
 }
 
 interface ChatIconProps {
-  name: string;
+  name?: string;
 }
 
 const ChatIcon: React.FC<ChatIconProps> = ({ name }) => {
@@ -29,7 +29,12 @@ const ChatIcon: React.FC<ChatIconProps> = ({ name }) => {
     []
   );
 
-  const Component = useMemo(() => icons[name], [icons, name]);
+  const Component = useMemo(() => (name ? icons[name.toLowerCase()] : null), [
+    icons,
+    name,
+  ]);
+
+  if (!Component) return <div />;
 
   return <Component />;
 };
