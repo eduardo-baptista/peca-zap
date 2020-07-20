@@ -33,33 +33,12 @@ export const UserInfo = styled.button`
   }
 `;
 
-export const SearchInput = styled.div`
-  width: 100%;
-  height: 38px;
-  margin-bottom: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
-
-  input {
-    background: none;
-    border: none;
-    color: #333333;
-    padding: 0 10px;
-
-    flex: 1;
-  }
-`;
-
 export const CustomersTitleRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin-top: 10px;
 
   height: 38px;
   font-size: 12px;

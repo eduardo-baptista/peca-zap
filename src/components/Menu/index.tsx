@@ -5,7 +5,6 @@ import { signOut } from 'store/modules/auth/actions';
 import { changeSelectedId } from 'store/modules/customers/actions';
 
 import { ReactComponent as DownArrowSvg } from 'assets/icons/down-arrow.svg';
-import { ReactComponent as SearchSvg } from 'assets/icons/search.svg';
 import { ReactComponent as AddSvg } from 'assets/icons/add.svg';
 import { ReactComponent as LogoSvg } from 'assets/white-logo.svg';
 
@@ -13,12 +12,13 @@ import Picture from 'components/Picture';
 import PersonInfo from 'components/PersonInfo';
 import CustomerInfo from 'components/CustomerInfo';
 import SvgContainer from 'components/SvgContainer';
+import SearchInput from 'components/SearchInput';
+
 import { customersState, Customer } from 'store/modules/customers/types';
 import {
   Container,
   MenuHeader,
   UserInfo,
-  SearchInput,
   CustomersTitleRow,
   CustomersList,
   Logo,
@@ -62,12 +62,7 @@ const Menu: React.FC = () => {
             <DownArrowSvg />
           </SvgContainer>
         </UserInfo>
-        <SearchInput>
-          <input />
-          <SvgContainer>
-            <SearchSvg />
-          </SvgContainer>
-        </SearchInput>
+        <SearchInput svgColor="#FFFFFF" />
         <CustomersTitleRow>
           CLIENTES
           <SvgContainer>

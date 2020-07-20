@@ -2,7 +2,7 @@ interface IMessage {
   seen: boolean;
   timestamp: number;
   body: string;
-  type: string;
+  type: 'incoming' | 'outgoing';
 }
 
 export interface IChat {
