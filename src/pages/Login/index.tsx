@@ -1,10 +1,11 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from 'store/modules/auth/actions';
 
 import Input from 'components/Input';
+import Loading from 'components/Loading';
 
 import logo from 'assets/logo.svg';
 import { ReactComponent as EmailIcon } from 'assets/icons/email.svg';
@@ -16,6 +17,8 @@ import { ReactComponent as UserIcon } from 'assets/icons/user.svg';
 import { ReactComponent as PasswordIcon } from 'assets/icons/password.svg';
 import { ReactComponent as ArrowIcon } from 'assets/icons/arrow.svg';
 
+import { authState } from 'store/modules/auth/types';
+
 import { Form, IconsRow, ConfirmButton, ForgotPasswordLink } from './styles';
 
 interface inputValues {
@@ -23,8 +26,13 @@ interface inputValues {
   password: string;
 }
 
+interface ReduxState {
+  auth: authState;
+}
+
 const Login: React.FC = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state: ReduxState) => state.auth.loading);
   const [values, setValues] = useState<inputValues>({ user: '', password: '' });
 
   const isDisabled = useMemo(() => !values.user || !values.password, [values]);
@@ -78,8 +86,14 @@ const Login: React.FC = () => {
           onChange={handleChange}
         />
         <ConfirmButton disabled={isDisabled} type="submit">
-          ENTRAR
-          <ArrowIcon />
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              ENTRAR
+              <ArrowIcon />
+            </>
+          )}
         </ConfirmButton>
         <ForgotPasswordLink href="/">Esqueceu a senha?</ForgotPasswordLink>
       </Form>
