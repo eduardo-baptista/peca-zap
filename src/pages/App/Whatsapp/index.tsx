@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 
 import { ReactComponent as InputSvg } from 'assets/whatsapp-options.svg';
@@ -7,12 +8,13 @@ import ChatTopBar from 'components/ChatTopBar';
 import SearchInput from 'components/SearchInput';
 import StartChatSeparator from 'components/StartChatSeparator';
 import Message from 'components/Message';
+import Button from 'components/Button';
 
 import { chatsState } from 'store/modules/chats/types';
 import { contactsState } from 'store/modules/contacts/types';
 import { customersState } from 'store/modules/customers/types';
 
-import { Container, Button, ChatContainer, InputContainer } from './styles';
+import { Container, ChatContainer, InputContainer } from './styles';
 
 interface ReduxState {
   chats: chatsState;
@@ -40,9 +42,12 @@ const Whatsapp: React.FC = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>peçaZap - Whatsapp</title>
+      </Helmet>
       <ChatTopBar>
         <SearchInput svgColor="#A7B6C2" />
-        <Button>FINALIZAR</Button>
+        <Button type="button">FINALIZAR ATENDIMENTO</Button>
       </ChatTopBar>
       <ChatContainer>
         {chat && (
@@ -55,6 +60,7 @@ const Whatsapp: React.FC = () => {
                 seen={msg.seen}
                 type={msg.type}
                 body={msg.body}
+                sizePercent={50}
               />
             ))}
           </>

@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import ChatsMenu from 'components/ChatsMenu';
 import CustomerSideInfo from 'components/CustomerSideInfo';
 import WhatsappPage from './Whatsapp';
-import EmailPage from './Email';
+import EmailListPage from './EmailList';
 
 import { Chat } from './styles';
 
@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <Chat>
         <Switch>
           <Route path="/app/whatsapp" component={WhatsappPage} />
-          <Route path="/app/email" component={EmailPage} />
+          <Route path="/app/email" exact component={EmailListPage} />
         </Switch>
       </Chat>
       <CustomerSideInfo />

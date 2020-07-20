@@ -1,15 +1,9 @@
 import styled from 'styled-components';
-import BaseButton from 'components/Button';
 
 export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-export const Button = styled(BaseButton)`
-  width: 100%;
-  max-width: 234px;
 `;
 
 export const ChatContainer = styled.div`
@@ -34,6 +28,7 @@ export const InputContainer = styled.div`
   input {
     border: none;
     height: 100%;
+    width: 100%;
 
     &::placeholder {
       color: #999999;

@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: center;
 
   background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 
   input {

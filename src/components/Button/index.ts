@@ -8,6 +8,7 @@ const Button = styled.button`
   box-shadow: 0px 1px 0px #0794b6;
 
   height: 38px;
+  padding: 0 25px;
 
   display: flex;
   align-items: center;
