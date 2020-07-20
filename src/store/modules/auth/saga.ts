@@ -36,7 +36,7 @@ interface setDataParams {
 }
 
 export function* setData({ payload }: setDataParams) {
-  if (!payload.auth.signed) return;
+  if (!payload?.auth?.signed) return;
 
   yield put(loadCustomersRequest());
   yield put(loadContactsRequest());
